@@ -1,0 +1,615 @@
+/* ==========================================================================
+   CSS Custom Properties (Variables) - Redesigned
+   ========================================================================== */
+:root {
+    --bg-color: #0A0A0A; /* Slightly deeper black */
+    --text-color: #EAEAEA; /* Slightly softer white */
+    --description-color: #A0AEC0; /* Softer grey for descriptions */
+    --accent-color: #1A202C; /* Dark grey, can be used for card backgrounds or subtle accents */
+    --border-color: #2D3748; /* Softer border color */
+    --primary-highlight-color: #4FD1C5; /* A teal highlight for accents if needed (not heavily used yet) */
+    
+    --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-xs: 0.75rem;  /* 12px */
+    --font-sm: 0.875rem; /* 14px */
+    --font-base: 1rem;   /* 16px */
+    --font-lg: 1.125rem; /* 18px */
+    --font-xl: 1.25rem;  /* 20px */
+    --font-xxl: 1.5rem; /* 24px */
+
+    --spacing-unit: 8px;
+    --container-padding: calc(var(--spacing-unit) * 2); /* 16px */
+}
+
+/* ==========================================================================
+   Reset & Base Styles - Redesigned
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    line-height: 1.7; /* Increased for better readability */
+    font-size: var(--font-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   Layout & Container - Redesigned
+   ========================================================================== */
+.wrap {
+    width: 100%;
+    max-width: 800px; /* Wider container for more space */
+    margin: 0 auto;
+    padding: calc(var(--spacing-unit) * 6) var(--container-padding) calc(var(--spacing-unit) * 8) var(--container-padding); /* 48px 16px 64px 16px */
+}
+
+main {
+    width: 100%;
+}
+
+/* ==========================================================================
+   Section Spacing - Redesigned
+   ========================================================================== */
+.section-container {
+    margin-top: calc(var(--spacing-unit) * 8); /* 64px, increased spacing */
+}
+.now, .blog, .projects { /* Specific initial sections might need less top margin if header is tall */
+    margin-top: calc(var(--spacing-unit) * 6); /* 48px */
+}
+.experience-content {
+    margin-top: calc(var(--spacing-unit) * 4); /* 32px */
+}
+
+/* ==========================================================================
+   Scrollbar Styles (Minimal change, often OS-dependent)
+   ========================================================================== */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+
+/* ==========================================================================
+   Header & Profile Components - Redesigned
+   ========================================================================== */
+.header {
+    background: rgba(10, 10, 10, 0.8); /* Darker, more translucent */
+    backdrop-filter: blur(10px);
+    padding: var(--container-padding); /* 16px */
+    border-radius: 8px; /* Slightly more rounded */
+    height: auto; /* Auto height based on content */
+    min-height: 76px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    margin-bottom: calc(var(--spacing-unit) * 6); /* 48px */
+    position: sticky; /* Sticky header */
+    top: var(--container-padding); /* Stick 16px from top */
+    z-index: 100;
+}
+
+.profile {
+    --profile-avatar-size: 48px; /* Slightly larger avatar */
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing-unit) * 1.5); /* 12px */
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) / 2); /* 4px */
+}
+
+.profile-info h1 {
+    font-size: var(--font-xl); /* 20px */
+    font-weight: 600; /* Semi-bold */
+    line-height: 1.3;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.avatar {
+    width: var(--profile-avatar-size);
+    height: var(--profile-avatar-size);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color); /* Subtle border around avatar */
+}
+
+/* ==========================================================================
+   Social Links - Redesigned
+   ========================================================================== */
+.social-links {
+    display: flex;
+    gap: var(--spacing-unit); /* 8px */
+    align-items: center;
+}
+
+.social-links a {
+    color: var(--description-color); /* Softer color for icons */
+    line-height: 0;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease-in-out;
+}
+.social-links a:hover {
+    color: var(--text-color); /* Brighten on hover */
+}
+
+.social-links svg {
+    width: 22px; /* Slightly larger icons */
+    height: 22px;
+    stroke-width: 1.5; /* Thinner strokes for a lighter feel */
+}
+
+/* ==========================================================================
+   Card Components (Project Cards) - Redesigned
+   ========================================================================== */
+.project-card {
+    background: var(--accent-color); /* Use accent color for card background */
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* width: 100%; Implicitly handled by grid */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.project-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio, common for thumbnails */
+    background: var(--bg-color);
+}
+
+.project-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-content {
+    padding: calc(var(--spacing-unit) * 2); /* 16px */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit); /* 8px */
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-unit); /* 8px */
+    margin-top: calc(var(--spacing-unit) / 2); /* 4px */
+}
+
+.tech-tag {
+    background: var(--bg-color); /* Match page background for contrast */
+    color: var(--description-color);
+    padding: calc(var(--spacing-unit) / 2) var(--spacing-unit); /* 4px 8px */
+    border-radius: 4px;
+    font-size: var(--font-xs);
+    white-space: nowrap;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.tech-tag:hover {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.project-content h3 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: var(--font-lg); /* 18px */
+    font-weight: 500; /* Medium weight */
+    line-height: 1.4;
+}
+
+.project-content p {
+    margin: 0;
+    color: var(--description-color);
+    font-size: var(--font-sm); /* 14px */
+    line-height: 1.6;
+}
+
+.project-date {
+    color: var(--description-color);
+    font-size: var(--font-xs); /* 12px */
+    opacity: 0.7;
+    margin-top: auto; /* Pushes date to bottom if card height varies */
+    padding-top: var(--spacing-unit); /* Space above date */
+}
+
+/* ==========================================================================
+   Common Text Styles - Redesigned (Covered by specific elements and base)
+   ========================================================================== */
+h1, h2, h3 { /* General heading consistency */
+    line-height: 1.3;
+    color: var(--text-color);
+}
+
+.title { /* "Creator & Explorer" */
+    color: var(--description-color);
+    font-size: var(--font-sm);
+    line-height: 1.3;
+    margin: 0;
+}
+
+.description {
+    color: var(--description-color);
+    font-size: var(--font-sm);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Now Section - Redesigned
+   ========================================================================== */
+.now {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2); /* 16px, gap between header and items */
+}
+
+.now-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit); /* 8px */
+}
+
+.now-item {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) / 2); /* 4px */
+    padding: var(--spacing-unit); /* Add some padding */
+    background-color: var(--accent-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.now-item p:first-child { /* Title like "crunch web" */
+    color: var(--text-color);
+    font-size: var(--font-base); /* 16px */
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Projects Section - Redesigned (Grid Layout)
+   ========================================================================== */
+.projects {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3); /* 24px, between header, grid, button */
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive 2-column, fallback to 1 */
+    gap: calc(var(--spacing-unit) * 3); /* 24px */
+    width: 100%;
+}
+
+/* ==========================================================================
+   Blog Section - Redesigned
+   ========================================================================== */
+.blog .section-header {
+    margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+}
+
+.blog-posts {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2); /* 16px */
+    margin-bottom: calc(var(--spacing-unit) * 3); /* 24px */
+}
+
+.blog-post {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+    padding: calc(var(--spacing-unit) * 1.5); /* 12px */
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--accent-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.blog-post:hover {
+    background-color: #2D3748; /* Slightly darker accent */
+    border-color: #4A5568;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: calc(var(--spacing-unit) / 2); /* 4px */
+}
+
+.blog-post h3 {
+    color: var(--text-color);
+    font-size: var(--font-base); /* 16px */
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.blog-post time {
+    font-size: var(--font-xs);
+    color: var(--description-color);
+    opacity: 0.8;
+}
+
+.blog-post p {
+    color: var(--description-color);
+    font-size: var(--font-sm); /* 14px */
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Common Components (About Me, Buttons etc.) - Redesigned
+   ========================================================================== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--spacing-unit); /* 8px */
+    border-bottom: 1px solid var(--border-color);
+    /* margin-bottom handled by parent container gaps */
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: var(--font-xxl); /* 24px */
+    font-weight: 600; /* Bolder section titles */
+    line-height: 1.3;
+    color: var(--text-color);
+}
+
+.about-content {
+    display: flex;
+    gap: calc(var(--spacing-unit) * 4); /* 32px */
+    align-items: flex-start;
+    margin-top: calc(var(--spacing-unit) * 2); /* 16px */
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text p {
+    color: var(--description-color);
+    font-size: var(--font-base); /* 16px for main paragraphs */
+    margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+}
+
+.about-image {
+    flex-shrink: 0;
+    width: 200px;
+    border-radius: 8px; /* Rounded image */
+    overflow: hidden; /* To make border-radius work on img */
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block; /* Remove bottom space */
+}
+
+.view-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-unit); /* Add some space if it's after a grid */
+}
+
+.view-all-button,
+.download-cv-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-unit); /* 8px */
+    padding: calc(var(--spacing-unit)*1.25) calc(var(--spacing-unit)*2.5); /* 10px 20px */
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    border-radius: 6px; /* Softly rounded buttons */
+    font-size: var(--font-sm); /* 14px */
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+.view-all-button:hover,
+.download-cv-button:hover {
+    background-color: var(--border-color);
+    border-color: #4A5568;
+    color: var(--text-color); /* Ensure text color stays */
+}
+
+.download-cv-button {
+    margin-top: calc(var(--spacing-unit) * 2); /* 16px */
+}
+.download-cv-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================================================
+    Links - General
+   ========================================================================== */
+a {
+    color: var(--primary-highlight-color); /* Use highlight color for links */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: #81E6D9; /* Lighter shade of highlight */
+}
+/* Resetting color for specific link components like buttons, cards */
+.project-card a, .blog-post a, .social-links a, .view-all-button, .download-cv-button {
+    color: var(--text-color); /* Override general link color */
+}
+.social-links a { color: var(--description-color); } /* Specific for social icons */
+.social-links a:hover { color: var(--text-color); }
+.blog-post h3 a { color: var(--text-color); } /* Ensure blog post titles are text color */
+
+
+/* ==========================================================================
+   Work Experience Section - Redesigned
+   ========================================================================== */
+.experience-content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 4); /* 32px */
+}
+
+.experience-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit); /* 8px */
+    padding: calc(var(--spacing-unit) * 2); /* 16px */
+    background-color: var(--accent-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.experience-header {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) / 2); /* 4px */
+}
+
+.experience-title-group {
+    display: flex;
+    flex-direction: column; /* Stack date and role on all screen sizes for this redesign */
+    gap: calc(var(--spacing-unit) / 2); /* 4px */
+    align-items: flex-start;
+}
+
+.experience-date {
+    color: var(--description-color);
+    font-size: var(--font-xs); /* 12px */
+    font-weight: 500;
+    min-width: auto;
+}
+
+.experience-role {
+    font-size: var(--font-lg); /* 18px */
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.experience-description,
+.experience-tech {
+    color: var(--description-color);
+    font-size: var(--font-sm); /* 14px */
+    margin-left: 0; /* Remove previous indentation */
+    line-height: 1.6;
+}
+.experience-tech {
+    margin-top: calc(var(--spacing-unit) / 2);
+    font-style: italic; /* Differentiate tech stack slightly */
+}
+
+/* ==========================================================================
+   CTA & Footer - Redesigned
+   ========================================================================== */
+.section-divider {
+    border-bottom: 1px solid var(--border-color);
+    margin: calc(var(--spacing-unit) * 6) 0; /* 48px */
+}
+
+.cta-section .cta-content {
+    text-align: center;
+}
+.cta-section .cta-title {
+    font-size: var(--font-xxl); /* 24px */
+    font-weight: 600;
+    margin-bottom: var(--spacing-unit); /* 8px */
+}
+.cta-section p {
+    font-size: var(--font-lg); /* 18px */
+    color: var(--description-color);
+}
+
+.site-footer {
+    text-align: center;
+    padding-top: calc(var(--spacing-unit) * 2); /* 16px */
+}
+.site-footer p {
+    font-size: var(--font-sm); /* 14px */
+    color: var(--description-color);
+}
+
+/* ==========================================================================
+   Media Queries - Adjustments for responsive
+   ========================================================================== */
+@media (max-width: 768px) {
+    .wrap {
+        padding-top: calc(var(--spacing-unit) * 8);
+    }
+    .about-content {
+        flex-direction: column;
+        align-items: center; /* Center items when stacked */
+    }
+    .about-image {
+        width: 150px; /* Smaller image on smaller screens */
+        margin-bottom: calc(var(--spacing-unit) * 2);
+    }
+}
+
+@media (max-width: 640px) {
+    :root { /* Slightly smaller fonts for very small screens */
+        --font-sm: 0.8125rem; /* 13px */
+        --font-base: 0.9375rem; /* 15px */
+        --font-lg: 1.0625rem; /* 17px */
+        --font-xl: 1.1875rem;  /* 19px */
+        --font-xxl: 1.375rem; /* 22px */
+    }
+    .wrap {
+        padding-left: calc(var(--spacing-unit) * 1.5);
+        padding-right: calc(var(--spacing-unit) * 1.5);
+    }
+    .header {
+        padding: calc(var(--spacing-unit) * 1.5);
+        top: calc(var(--spacing-unit) * 1.5);
+    }
+     .profile-info h1 {
+        font-size: var(--font-lg);
+    }
+    .social-links svg {
+        width: 20px;
+        height: 20px;
+    }
+    .project-grid { /* Force single column on small screens if auto-fit isn't enough */
+        grid-template-columns: 1fr;
+    }
+    .section-header h2 {
+        font-size: var(--font-xl);
+    }
+}
